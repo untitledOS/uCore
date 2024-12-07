@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Launchpad</title>
+</head>
+<body>
+    <div id="launchpad">
+        <input id="search" type="text" placeholder="Search">
+        <div class="fade">
+            <p>e</p>
+        </div>
+        <div id="launchpadAppGrid" class="app-grid"></div>
+        <script src="renderer.js"></script>
+        <script>
+            setTimeout(function() {
+                document.body.style.transition = 'opacity 1s';
+                document.body.style.opacity = 1;
+                
+                document.querySelector('.app-grid').style.transition = 'transform 0.5s';
+                document.querySelector('.app-grid').style.transform = 'translateY(0)';
+            }, 0);
+
+            document.getElementById('launchpad').addEventListener('click', function() {
+                document.getElementById('search').focus();
+            });
+
+            document.getElementById('search').focus();
+        </script>
+        <script>
+            document.getElementById('search').addEventListener('input', function() {
+                var search = this.value.toLowerCase();
+                var apps = document.querySelectorAll('.app');
+                for (var i = 0; i < apps.length; i++) {
+                    var app = apps[i];
+                    var appName = app.querySelector('p').textContent.toLowerCase();
+                    if (!appName.includes(search)) {
+                        app.classList.add('hidden');
+                    } else {
+                        app.classList.remove('hidden');
+                    }
+                }
+            });
+
+            document.getElementById('search').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    var app = document.querySelector('.app:not(.hidden)');
+                    if (app) {
+                        app.querySelector('img').click();
+                    }
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    window.api.hideWindow(); 
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

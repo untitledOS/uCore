@@ -1,0 +1,23 @@
+{
+  "name": "ucore",
+  "version": "1.0.0",
+  "description": "the core of ude",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/untitledOS/uCore.git"
+  },
+  "author": "Ethan Martin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/untitledOS/uCore/issues"
+  },
+  "homepage": "https://github.com/untitledOS/uCore#readme",
+  "devDependencies": {
+    "electron": "^33.2.1"
+  }
+}
