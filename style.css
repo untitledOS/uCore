@@ -26,20 +26,21 @@ body * {
     color: black;
 }
 
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
     width: 0.5em;
+    height: 0.5em;
 }
 
-body::-webkit-scrollbar-corner {
+*::-webkit-scrollbar-corner {
     background-color: transparent;
 }
 
-body::-webkit-scrollbar-thumb {
-    background-color: #747474;
+*::-webkit-scrollbar-thumb {
+    background-color: #bababa;
     border-radius: 0.5em;
 }
 
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
@@ -184,6 +185,7 @@ body {
     border-right: 0.1em solid #c2c2c2;
     margin: 0;
     gap: 0.3em;
+    overflow: scroll;
 }
 
 .sidebar .settings-search {
@@ -236,12 +238,18 @@ body {
     padding: 0.75em;
     height: 100%;
     width: 100%;
+    overflow: scroll;
+    max-width: 45em;
 }
 
 .settings-content {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+}
+
+.settings-content.hidden {
+    display: none;
 }
 
 .settings-title {
@@ -272,27 +280,27 @@ body {
     justify-content: space-between;
 }
 
+.settings-content-item div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5em;
+}
+
 .settings-content-button {
     border: none;
-    background-color: #e8e8e8;
+    background-color: #dadada;
     padding: 0.5em;
     font-weight: 500;
     font-size: 1em;
     font-family: inherit;
     border-radius: 0.4em;
-    border-bottom: 0.1em solid #cdcdcd;
-    border-top: 0.1em solid transparent;
-    border-left: 0.1em solid transparent;
-    border-right: 0.1em solid transparent;
 }
 
 .settings-content-button:active {
-    background-color: #efefef;
-    border-bottom: 0.1em solid transparent;
-    border-top: 0.1em solid #cdcdcd;
+    background-color: #cacaca;
 }
 
 .settings-content-button:focus {
     outline: none;
-    border: 0.1em solid #2176ff;
 }

@@ -28,6 +28,15 @@ contextBridge.exposeInMainWorld('api', {
       return []
     }
   },
+  connectBluetoothDevice: async (address) => {
+    try {
+      const result = await ipcRenderer.invoke('connectBluetoothDevice', address)
+      return result
+    } catch (error) {
+      console.error('Error connecting bluetooth device:', error)
+      return null
+    }
+  },
   closeWindow: () => {
     ipcRenderer.send('close-window')
   },

@@ -42,32 +42,70 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 })
 
-window.addEventListener('DOMContentLoaded', async () => {
+const iconMap = {
+  'audio-card': '<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M11 4V3c0-.55.45-1 1-1s1 .45 1 1v1zm2 5V5h-2v4H9v6c0 1.3.84 2.4 2 2.82V22h2v-4.18c1.16-.42 2-1.52 2-2.82V9z"/></svg>',
+  'audio-headset': '<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23v-2h7v-1h-4v-8h4v-1q0-2.9-2.05-4.95T12 4T7.05 6.05T5 11v1h4v8H5q-.825 0-1.412-.587T3 18v-7q0-1.85.713-3.488T5.65 4.65t2.863-1.937T12 2t3.488.713T18.35 4.65t1.938 2.863T21 11v10q0 .825-.587 1.413T19 23z"/></svg>'
+}
+const iconNameMap = {
+  'audio-card': 'Audio Card',
+  'audio-headset': 'Audio Headset'
+}
+
+async function updateBluetoothDevices() {
   try {
-    console.log('Getting bluetooth devices in renderer.js')
-    const devices = await window.api.getBluetoothDevices()
-    console.log('Devices received in renderer.js:', devices)
+    const bluetoothSettings = document.getElementById('bluetoothSettings')
+    if (bluetoothSettings && bluetoothSettings.classList.contains('hidden')) {
+      return
+    }
     const container = document.getElementById('bluetoothDeviceList')
+    console.log('Updating Bluetooth Devices')
+    const devices = await window.api.getBluetoothDevices()
     if (!container) {
       console.error('Container element not found in renderer.js')
       return
+    }
+    while (container.firstChild) {
+      container.removeChild(container.firstChild)
     }
     devices.forEach(device => {
       const div = document.createElement('div')
       div.classList.add('device')
       div.classList.add('settings-content-item')
       div.id = device.address
+      const iconAndName = document.createElement('div')
+      const iconName = device.Icon
+      const iconSVG = iconMap[iconName] || '<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M11 20.575V14.4l-3.9 3.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275L11 9.6V3.425q0-.45.3-.737T12 2.4q.2 0 .375.075t.325.225L17 7q.15.15.213.325t.062.375t-.062.375T17 8.4L13.4 12l3.6 3.6q.15.15.213.325t.062.375t-.062.375T17 17l-4.3 4.3q-.15.15-.325.225T12 21.6q-.4 0-.7-.288t-.3-.737M13 9.6l1.9-1.9L13 5.85zm0 8.55l1.9-1.85l-1.9-1.9z"/></svg>'
+      const icon = document.createElement('div')
+      icon.innerHTML = iconSVG
+      icon.classList.add('settings-content-icon')
+      iconAndName.appendChild(icon)
       const span = document.createElement('span')
       span.textContent = device.name
-      div.appendChild(span)
+      iconAndName.appendChild(span)
+      div.appendChild(iconAndName)
       const button = document.createElement('button')
       button.textContent = 'Connect'
+      if (device.Connected === 'yes') {
+        button.textContent = 'Disconnect'
+      }
       button.classList.add('settings-content-button')
       button.addEventListener('click', async () => {
         try {
+          if (device.Connected === 'yes') {
+            button.textContent = 'Disconnecting...'
+          } else {
+            button.textContent = 'Connecting...'
+          }
           console.log('Device connect clicked in renderer.js:', device)
           const result = await window.api.connectBluetoothDevice(device.address)
-          console.log('Device connected in renderer.js:', result)
+          if (result === 'connected') {
+            button.textContent = 'Disconnect'
+          } else {
+            button.textContent = 'Failed to connect'
+            setTimeout(() => {
+              button.textContent = 'Connect'
+            }, 1000)
+          }
         } catch (error) {
           console.error('Error connecting device in renderer.js:', error)
         }
@@ -75,8 +113,10 @@ window.addEventListener('DOMContentLoaded', async () => {
       div.appendChild(button)
       container.appendChild(div)
     })
-    console.log('Devices added to DOM in renderer.js')
   } catch (error) {
     console.error('Error adding devices to DOM in renderer.js:', error)
   }
-})
+}
+
+updateBluetoothDevices()
+setInterval(updateBluetoothDevices, 500)

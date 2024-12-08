@@ -83,6 +83,11 @@ app.whenReady().then(() => {
       event.preventDefault()
       limelightWindow.hide()
     })
+
+    settingsWindow.on('close', (event) => {
+      event.preventDefault()
+      settingsWindow.hide()
+    })
   
     // app.on('activate', () => {
     //   if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -148,12 +153,8 @@ ipcMain.handle('getBluetoothDevices', async () => {
   try {
     const devices = []
     const output = execSync('bluetoothctl devices').toString()
-    console.log('Bluetoothctl output:', output) // Log the output of the command
     const lines = output.split('\n')
-    // structure: Device 00:11:22:33:44:55 DeviceName
-    // split by space, take second and third element
     for (const line of lines) {
-      console.log('Processing line:', line) // Log each line being processed
       const parts = line.split(' ')
       if (parts.length >= 3) {
         const address = parts[1]
@@ -161,11 +162,54 @@ ipcMain.handle('getBluetoothDevices', async () => {
         devices.push({ address, name })
       }
     }
-    console.log('Devices found:', devices) // Log the devices found
+    // also append bluetoothctl info {address} to get more info for each device and add info as a property to each device
+    for (const device of devices) {
+      const output = execSync(`bluetoothctl info ${device.address}`).toString()
+      const lines = output.split('\n')
+      for (const line of lines) {
+        const parts = line.split(': ')
+        if (parts.length >= 2) {
+          const key = parts[0].replace(/^\t/, '')
+          const value = parts[1]
+          device[key] = value
+        }
+      }
+    }
+    console.log('Bluetooth devices:', devices)
     return devices
   } catch (error) {
     console.error('Error getting Bluetooth devices:', error) // Log any errors
     return []
+  }
+})
+
+ipcMain.handle('connectBluetoothDevice', async (event, address) => {
+  try {
+    // get info to see if already connected
+    const infoOutput = execSync(`bluetoothctl info ${address}`).toString()
+    const infoLines = infoOutput.split('\n')
+    let connected = false
+    for (const line of infoLines) {
+      if (line.includes('Connected: yes')) {
+        connected = true
+        break
+      }
+    }
+    if (connected) {
+      const output = execSync(`bluetoothctl disconnect ${address}`).toString()
+      return 'disconnected'
+    }
+    const output = execSync(`bluetoothctl connect ${address}`).toString()
+    if (output.includes('Connected: yes')) {
+      console.log('Bluetooth device connected:', address)
+      return 'connected'
+    } else {
+      console.log('Failed to connect to Bluetooth device:', address)
+      return 'failed'
+    }
+  } catch (error) {
+    console.error('Error connecting Bluetooth device:', error)
+    return null
   }
 })
 

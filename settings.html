@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="settings.css">
-    <script src="renderer.js"></script>
+    <script src="renderer.js" type="module"></script>
     <title>Settings</title>
 </head>
 <body>
@@ -57,12 +57,45 @@
         </div>
     </div>
     <div class="main-content">
-        <div id="bluetoothSettings" class="settings-content">
-            <span class="settings-title">Bluetooth</span>
-            <button class="settings-content-button" style="width: 8em;">Add Devices</button>
-            <span class="settings-section-title">Paired Devices</span>
-            <div id="bluetoothDeviceList" class="settings-content-items-list"></div>
-        </div>
+    </div>
+    <div id="wi-fiSettings" class="settings-content hidden">
+        <span class="settings-title">Wi-Fi</span>
+        <button class="settings-content-button" style="width: 8em;">Add Network</button>
+        <span class="settings-section-title">Networks</span>
+        <div id="wifiNetworkList" class="settings-content-items-list"></div>
+    </div>
+    <div id="bluetoothSettings" class="settings-content hidden">
+        <span class="settings-title">Bluetooth</span>
+        <button class="settings-content-button" style="width: 8em;">Add Devices</button>
+        <span class="settings-section-title">Paired Devices</span>
+        <div id="bluetoothDeviceList" class="settings-content-items-list"></div>
+    </div>
+    <div id="appsSettings" class="settings-content hidden">
+        <span class="settings-title">Apps</span>
+    </div>
+    <div id="powerSettings" class="settings-content hidden">
+        <span class="settings-title">Power</span>
+    </div>
+    <div id="storageSettings" class="settings-content hidden">
+        <span class="settings-title">Storage</span>
+    </div>
+    <div id="soundSettings" class="settings-content hidden">
+        <span class="settings-title">Sound</span>
+    </div>
+    <div id="displaySettings" class="settings-content hidden">
+        <span class="settings-title">Display</span>
+    </div>
+    <div id="appearanceSettings" class="settings-content hidden">
+        <span class="settings-title">Appearance</span>
+    </div>
+    <div id="updateSettings" class="settings-content hidden">
+        <span class="settings-title">Update</span>
+    </div>
+    <div id="usersSettings" class="settings-content hidden">
+        <span class="settings-title">Users</span>
+    </div>
+    <div id="deviceinfoSettings" class="settings-content hidden">
+        <span class="settings-title">Device Info</span>
     </div>
     <script>
         document.addEventListener("keydown", function(e) {
@@ -75,6 +108,34 @@
                 }
             }
         });
+    
+        let isMouseDown = false;
+    
+        document.querySelectorAll(".sidebar-item").forEach(function(item) {
+            item.addEventListener("mousedown", function() {
+                isMouseDown = true;
+                document.querySelector(".selected").classList.remove("selected");
+                item.classList.add("selected");
+                document.querySelector(".main-content").innerHTML = document.querySelector("#" + item.querySelector(".sidebar-item-title").textContent.toLowerCase().replace(/\s/g, "") + "Settings").outerHTML;
+                document.querySelector("#" + item.querySelector(".sidebar-item-title").textContent.toLowerCase() + "Settings").classList.remove("hidden");
+            });
+    
+            item.addEventListener("mouseover", function() {
+                if (isMouseDown) {
+                    document.querySelector(".selected").classList.remove("selected");
+                    item.classList.add("selected");
+                    document.querySelector(".main-content").innerHTML = document.querySelector("#" + item.querySelector(".sidebar-item-title").textContent.toLowerCase().replace(/\s/g, "") + "Settings").outerHTML;
+                    document.querySelector("#" + item.querySelector(".sidebar-item-title").textContent.toLowerCase().replace(/\s/g, "") + "Settings").classList.remove("hidden");
+                }
+            });
+        });
+    
+        document.addEventListener("mouseup", function() {
+            isMouseDown = false;
+        });
+    
+        document.querySelector(".main-content").innerHTML = document.querySelector("#bluetoothSettings").outerHTML;
+        document.querySelector("#bluetoothSettings").classList.remove("hidden");
     </script>
 </body>
 </html>
