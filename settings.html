@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="settings.css">
+    <script src="renderer.js"></script>
+    <title>Settings</title>
+</head>
+<body>
+    <div class="sidebar">
+        <input type="text" class="settings-search" placeholder="Search" spellcheck="false">
+        <div class="sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21q-1.05 0-1.775-.725T9.5 18.5t.725-1.775T12 16t1.775.725t.725 1.775t-.725 1.775T12 21m0-11q1.875 0 3.563.6t3.062 1.65q.5.375.513.988T18.7 14.3q-.425.425-1.05.438t-1.125-.338q-.95-.65-2.1-1.025T12 13t-2.425.375t-2.1 1.025q-.5.35-1.125.325t-1.05-.45q-.425-.45-.425-1.062t.5-.988q1.375-1.05 3.063-1.638T12 10m0-6q3.125 0 5.888 1.025t4.962 2.9q.5.425.525 1.05t-.425 1.075q-.425.425-1.05.438t-1.125-.388q-1.8-1.475-4.037-2.287T12 7t-4.737.813T3.225 10.1q-.5.4-1.125.388t-1.05-.438Q.6 9.6.625 8.975t.525-1.05q2.2-1.875 4.963-2.9T12 4"/></svg>
+            <span class="sidebar-item-title">Wi-Fi</span>
+        </div>
+        <div class="selected sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M11 20.575V14.4l-3.9 3.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275L11 9.6V3.425q0-.45.3-.737T12 2.4q.2 0 .375.075t.325.225L17 7q.15.15.213.325t.062.375t-.062.375T17 8.4L13.4 12l3.6 3.6q.15.15.213.325t.062.375t-.062.375T17 17l-4.3 4.3q-.15.15-.325.225T12 21.6q-.4 0-.7-.288t-.3-.737M13 9.6l1.9-1.9L13 5.85zm0 8.55l1.9-1.85l-1.9-1.9z"/></svg>
+            <span class="sidebar-item-title">Bluetooth</span>
+        </div>
+        <div class="sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M6 20q-.825 0-1.412-.587T4 18t.588-1.412T6 16t1.413.588T8 18t-.587 1.413T6 20m6 0q-.825 0-1.412-.587T10 18t.588-1.412T12 16t1.413.588T14 18t-.587 1.413T12 20m6 0q-.825 0-1.412-.587T16 18t.588-1.412T18 16t1.413.588T20 18t-.587 1.413T18 20M6 14q-.825 0-1.412-.587T4 12t.588-1.412T6 10t1.413.588T8 12t-.587 1.413T6 14m6 0q-.825 0-1.412-.587T10 12t.588-1.412T12 10t1.413.588T14 12t-.587 1.413T12 14m6 0q-.825 0-1.412-.587T16 12t.588-1.412T18 10t1.413.588T20 12t-.587 1.413T18 14M6 8q-.825 0-1.412-.587T4 6t.588-1.412T6 4t1.413.588T8 6t-.587 1.413T6 8m6 0q-.825 0-1.412-.587T10 6t.588-1.412T12 4t1.413.588T14 6t-.587 1.413T12 8m6 0q-.825 0-1.412-.587T16 6t.588-1.412T18 4t1.413.588T20 6t-.587 1.413T18 8"/></svg>
+            <span class="sidebar-item-title">Apps</span>
+        </div>
+        <div class="sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="m11 14.5l-5.925-.75q-.625-.075-.813-.675t.263-1.025l10.225-9.8q.125-.125.3-.187T15.525 2q.5 0 .763.425t.012.875L13 9.5l5.925.75q.625.075.813.675t-.263 1.025L9.25 21.75q-.125.125-.3.188T8.475 22q-.5 0-.763-.425T7.7 20.7z"/></svg>
+            <span class="sidebar-item-title">Power</span>
+        </div>
+        <div class="sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M5 20q-.825 0-1.412-.587T3 18t.588-1.412T5 16h14q.825 0 1.413.588T21 18t-.587 1.413T19 20zM5 8q-.825 0-1.412-.587T3 6t.588-1.412T5 4h14q.825 0 1.413.588T21 6t-.587 1.413T19 8zm0 6q-.825 0-1.412-.587T3 12t.588-1.412T5 10h14q.825 0 1.413.588T21 12t-.587 1.413T19 14zm1-7q.425 0 .713-.288T7 6t-.288-.712T6 5t-.712.288T5 6t.288.713T6 7m0 6q.425 0 .713-.288T7 12t-.288-.712T6 11t-.712.288T5 12t.288.713T6 13m0 6q.425 0 .713-.288T7 18t-.288-.712T6 17t-.712.288T5 18t.288.713T6 19"/></svg>
+            <span class="sidebar-item-title">Storage</span>
+        </div>
+        <div class="sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M19 11.975q0-2.075-1.1-3.787t-2.95-2.563q-.375-.175-.55-.537t-.05-.738q.15-.4.538-.575t.787 0Q18.1 4.85 19.55 7.063T21 11.974t-1.45 4.913t-3.875 3.287q-.4.175-.788 0t-.537-.575q-.125-.375.05-.737t.55-.538q1.85-.85 2.95-2.562t1.1-3.788M7 15H4q-.425 0-.712-.288T3 14v-4q0-.425.288-.712T4 9h3l3.3-3.3q.475-.475 1.088-.213t.612.938v11.15q0 .675-.612.938T10.3 18.3zm9.5-3q0 1.05-.475 1.988t-1.25 1.537q-.25.15-.513.013T14 15.1V8.85q0-.3.263-.437t.512.012q.775.625 1.25 1.575t.475 2"/></svg>
+            <span class="sidebar-item-title">Sound</span>
+        </div>
+        <div class="sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M17.5 14.5h-1.75q-.325 0-.537.213T15 15.25t.213.538t.537.212H18q.425 0 .713-.288T19 15v-2.25q0-.325-.213-.537T18.25 12t-.537.213t-.213.537zm-11-7h1.75q.325 0 .538-.213T9 6.75t-.213-.537T8.25 6H6q-.425 0-.712.288T5 7v2.25q0 .325.213.538T5.75 10t.538-.213t.212-.537zM4 19q-.825 0-1.412-.587T2 17V5q0-.825.588-1.412T4 3h16q.825 0 1.413.588T22 5v12q0 .825-.587 1.413T20 19h-4v1q0 .425-.288.713T15 21H9q-.425 0-.712-.288T8 20v-1zm0-2h16V5H4zm0 0V5z"/></svg>
+            <span class="sidebar-item-title">Display</span>
+        </div>
+        <div class="sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22q-2.05 0-3.875-.788t-3.187-2.15t-2.15-3.187T2 12q0-2.075.813-3.9t2.2-3.175T8.25 2.788T12.2 2q2 0 3.775.688t3.113 1.9t2.125 2.875T22 11.05q0 2.875-1.75 4.413T16 17h-1.85q-.225 0-.312.125t-.088.275q0 .3.375.863t.375 1.287q0 1.25-.687 1.85T12 22m-5.5-9q.65 0 1.075-.425T8 11.5t-.425-1.075T6.5 10t-1.075.425T5 11.5t.425 1.075T6.5 13m3-4q.65 0 1.075-.425T11 7.5t-.425-1.075T9.5 6t-1.075.425T8 7.5t.425 1.075T9.5 9m5 0q.65 0 1.075-.425T16 7.5t-.425-1.075T14.5 6t-1.075.425T13 7.5t.425 1.075T14.5 9m3 4q.65 0 1.075-.425T19 11.5t-.425-1.075T17.5 10t-1.075.425T16 11.5t.425 1.075T17.5 13M12 20q.225 0 .363-.125t.137-.325q0-.35-.375-.825T11.75 17.3q0-1.05.725-1.675T14.25 15H16q1.65 0 2.825-.962T20 11.05q0-3.025-2.312-5.038T12.2 4Q8.8 4 6.4 6.325T4 12q0 3.325 2.338 5.663T12 20"/></svg>
+            <span class="sidebar-item-title">Appearance</span>
+        </div>
+        <div class="sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M4 12.025q0 2.125 1.063 3.95T7.95 18.9q.35.225.488.613t-.063.737q-.2.375-.612.488t-.788-.088Q4.65 19.3 3.325 17T2 12.025q0-.65.088-1.275t.237-1.25L2 9.7q-.35.225-.75.113t-.6-.463t-.088-.763t.463-.612l3.025-1.75q.35-.2.763-.087t.612.462l1.75 3q.2.35.088.763t-.463.612t-.762.088t-.613-.463l-.85-1.475q-.275.7-.425 1.425T4 12.025M12 4q-1.025 0-2.025.263t-1.9.762q-.375.2-.787.138t-.613-.413q-.225-.4-.1-.812T7.1 3.3q1.125-.65 2.363-.975T12 2q1.975 0 3.788.738t3.237 2.137V4.5q0-.425.288-.712t.712-.288t.713.288t.287.712V8q0 .425-.287.713T20.025 9h-3.5q-.425 0-.712-.288T15.525 8t.288-.712t.712-.288h1.725q-1.15-1.425-2.775-2.212T12 4m6.05 13.275q.95-1.1 1.45-2.425t.5-2.775q0-.425.288-.75T21 11t.713.325t.287.75q0 1.625-.513 3.137T20 18.025t-2.312 2.225t-2.913 1.375l.25.15q.35.2.45.613t-.1.762t-.6.45t-.75-.1l-3.05-1.75q-.35-.2-.462-.613t.087-.762l1.75-3.025q.2-.35.6-.45t.75.1t.463.613t-.088.762l-.925 1.575q1.425-.2 2.688-.888t2.212-1.787"/></svg>
+            <span class="sidebar-item-title">Update</span>
+        </div>
+        <div class="sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12q-1.65 0-2.825-1.175T8 8t1.175-2.825T12 4t2.825 1.175T16 8t-1.175 2.825T12 12m-8 6v-.8q0-.85.438-1.562T5.6 14.55q1.55-.775 3.15-1.162T12 13t3.25.388t3.15 1.162q.725.375 1.163 1.088T20 17.2v.8q0 .825-.587 1.413T18 20H6q-.825 0-1.412-.587T4 18m2 0h12v-.8q0-.275-.137-.5t-.363-.35q-1.35-.675-2.725-1.012T12 15t-2.775.338T6.5 16.35q-.225.125-.363.35T6 17.2zm6-8q.825 0 1.413-.587T14 8t-.587-1.412T12 6t-1.412.588T10 8t.588 1.413T12 10m0 8"/></svg>
+            <span class="sidebar-item-title">Users</span>
+        </div>
+        <div class="sidebar-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17q.425 0 .713-.288T13 16v-4q0-.425-.288-.712T12 11t-.712.288T11 12v4q0 .425.288.713T12 17m0-8q.425 0 .713-.288T13 8t-.288-.712T12 7t-.712.288T11 8t.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
+            <span class="sidebar-item-title">Device Info</span>
+        </div>
+    </div>
+    <div class="main-content">
+        <div id="bluetoothSettings" class="settings-content">
+            <span class="settings-title">Bluetooth</span>
+            <button class="settings-content-button" style="width: 8em;">Add Devices</button>
+            <span class="settings-section-title">Paired Devices</span>
+            <div id="bluetoothDeviceList" class="settings-content-items-list"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "/") {
+                e.preventDefault();
+                if (document.activeElement !== document.querySelector(".settings-search")) {
+                    document.querySelector(".settings-search").focus();
+                } else {
+                    document.querySelector(".settings-search").blur();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

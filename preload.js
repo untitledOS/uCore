@@ -19,6 +19,15 @@ contextBridge.exposeInMainWorld('api', {
       return null
     }
   },
+  getBluetoothDevices: async () => {
+    try {
+      const devices = await ipcRenderer.invoke('getBluetoothDevices')
+      return devices
+    } catch (error) {
+      console.error('Error getting bluetooth devices:', error)
+      return []
+    }
+  },
   closeWindow: () => {
     ipcRenderer.send('close-window')
   },

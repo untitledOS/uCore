@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Limelight</title>
+</head>
+<body>
+    <div id="limelight" class="search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 15l6 6m-11-4a7 7 0 1 1 0-14a7 7 0 0 1 0 14"/></svg>
+        <input type="text" id="limelightSearch" placeholder="Limelight Search" spellcheck="false"></input>
+    </div>
+    <script>
+        document.getElementById('limelightSearch').focus();
+        setInterval(() => {
+            if (document.activeElement !== document.getElementById('limelightSearch')) {
+                document.getElementById('limelightSearch').focus();
+            }
+        }, 50);
+
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                document.getElementById('limelightSearch').focus();
+            }
+        });
+    </script>
+</body>
+</html>
