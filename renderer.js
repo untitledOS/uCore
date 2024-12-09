@@ -127,4 +127,8 @@ try {
 }
 
 updateBluetoothDevices()
-setInterval(updateBluetoothDevices, 500)
+try {
+  document.getElementById('updateBluetoothDevicesButton').addEventListener('click', updateBluetoothDevices)
+} catch (error) {
+  console.error('Error adding click event listener to updateBluetoothDevicesButton:', error)
+}

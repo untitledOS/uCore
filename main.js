@@ -91,13 +91,12 @@ const createStatusBar = () => {
 // })
 
 app.whenReady().then(() => {
-    createStatusBar()
+    // createStatusBar()
     createWindow()
     mainWindow.hide()
     createLimelightWindow()
     limelightWindow.hide()
     createSettingsWindow()
-    settingsWindow.hide()
 
     mainWindow.on('close', (event) => {
       event.preventDefault()
@@ -107,11 +106,6 @@ app.whenReady().then(() => {
     limelightWindow.on('close', (event) => {
       event.preventDefault()
       limelightWindow.hide()
-    })
-
-    settingsWindow.on('close', (event) => {
-      event.preventDefault()
-      settingsWindow.hide()
     })
 
     statusBar.on('close', (event) => {
@@ -295,14 +289,10 @@ function toggleLimeLightWindow() {
   toggleWindow(limelightWindow)
 }
 
-function toggleSettingsWindow() {
-  toggleWindow(settingsWindow)
-}
-
 const { globalShortcut } = require('electron')
 app.whenReady().then(() => {
   globalShortcut.register('Super+Space', () => { toggleLaunchpadWindow() })
   globalShortcut.register('Super+F4', () => { toggleLaunchpadWindow() })
   globalShortcut.register('Alt+Space', () => { toggleLimeLightWindow() })
-  globalShortcut.register('Super+I', () => { toggleSettingsWindow() })
+  globalShortcut.register('Super+I', () => { createSettingsWindow() })
 })

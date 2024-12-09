@@ -57,45 +57,48 @@
         </div>
     </div>
     <div class="main-content">
-    </div>
-    <div id="wi-fiSettings" class="settings-content hidden">
-        <span class="settings-title">Wi-Fi</span>
-        <button class="settings-content-button" style="width: 8em;">Add Network</button>
-        <span class="settings-section-title">Networks</span>
-        <div id="wifiNetworkList" class="settings-content-items-list"></div>
-    </div>
-    <div id="bluetoothSettings" class="settings-content hidden">
-        <span class="settings-title">Bluetooth</span>
-        <button class="settings-content-button" style="width: 8em;">Add Devices</button>
-        <span class="settings-section-title">Paired Devices</span>
-        <div id="bluetoothDeviceList" class="settings-content-items-list"></div>
-    </div>
-    <div id="appsSettings" class="settings-content hidden">
-        <span class="settings-title">Apps</span>
-    </div>
-    <div id="powerSettings" class="settings-content hidden">
-        <span class="settings-title">Power</span>
-    </div>
-    <div id="storageSettings" class="settings-content hidden">
-        <span class="settings-title">Storage</span>
-    </div>
-    <div id="soundSettings" class="settings-content hidden">
-        <span class="settings-title">Sound</span>
-    </div>
-    <div id="displaySettings" class="settings-content hidden">
-        <span class="settings-title">Display</span>
-    </div>
-    <div id="appearanceSettings" class="settings-content hidden">
-        <span class="settings-title">Appearance</span>
-    </div>
-    <div id="updateSettings" class="settings-content hidden">
-        <span class="settings-title">Update</span>
-    </div>
-    <div id="usersSettings" class="settings-content hidden">
-        <span class="settings-title">Users</span>
-    </div>
-    <div id="deviceinfoSettings" class="settings-content hidden">
-        <span class="settings-title">Device Info</span>
+        <div id="wi-fiSettings" class="settings-content hidden">
+            <span class="settings-title">Wi-Fi</span>
+            <button class="settings-content-button" style="width: 8em;">Add Network</button>
+            <span class="settings-section-title">Networks</span>
+            <div id="wifiNetworkList" class="settings-content-items-list"></div>
+        </div>
+        <div id="bluetoothSettings" class="settings-content hidden">
+            <span class="settings-title">Bluetooth</span>
+            <button class="settings-content-button" style="width: 8em;">Add Devices</button>
+            <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+                <span class="settings-section-title">Paired Devices</span>
+                <span class="settings-content-button" style="width: 2em; height: 2em; display:flex; align-items: center; justify-content: center; font-size: 1em;" id="updateBluetoothDevicesButton"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20q-3.35 0-5.675-2.325T4 12t2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V5q0-.425.288-.712T19 4t.713.288T20 5v5q0 .425-.288.713T19 11h-5q-.425 0-.712-.288T13 10t.288-.712T14 9h3.2q-.8-1.4-2.187-2.2T12 6Q9.5 6 7.75 7.75T6 12t1.75 4.25T12 18q1.7 0 3.113-.862t2.187-2.313q.2-.35.563-.487t.737-.013q.4.125.575.525t-.025.75q-1.025 2-2.925 3.2T12 20"/></svg></span>
+            </div>
+            <div id="bluetoothDeviceList" class="settings-content-items-list"></div>
+        </div>
+        <div id="appsSettings" class="settings-content hidden">
+            <span class="settings-title">Apps</span>
+        </div>
+        <div id="powerSettings" class="settings-content hidden">
+            <span class="settings-title">Power</span>
+        </div>
+        <div id="storageSettings" class="settings-content hidden">
+            <span class="settings-title">Storage</span>
+        </div>
+        <div id="soundSettings" class="settings-content hidden">
+            <span class="settings-title">Sound</span>
+        </div>
+        <div id="displaySettings" class="settings-content hidden">
+            <span class="settings-title">Display</span>
+        </div>
+        <div id="appearanceSettings" class="settings-content hidden">
+            <span class="settings-title">Appearance</span>
+        </div>
+        <div id="updateSettings" class="settings-content hidden">
+            <span class="settings-title">Update</span>
+        </div>
+        <div id="usersSettings" class="settings-content hidden">
+            <span class="settings-title">Users</span>
+        </div>
+        <div id="deviceinfoSettings" class="settings-content hidden">
+            <span class="settings-title">Device Info</span>
+        </div>
     </div>
     <script>
         async function updateSystemInfo() {
@@ -136,17 +139,21 @@
         document.querySelectorAll(".sidebar-item").forEach(function(item) {
             item.addEventListener("mousedown", function() {
                 isMouseDown = true;
-                document.querySelector(".selected").classList.remove("selected");
+                const selected = document.querySelector(".selected");
+                selected.classList.remove("selected")
+                const settingsContent = document.querySelector(".settings-content:not(.hidden)");
+                settingsContent.classList.add("hidden");
                 item.classList.add("selected");
-                document.querySelector(".main-content").innerHTML = document.querySelector("#" + item.querySelector(".sidebar-item-title").textContent.toLowerCase().replace(/\s/g, "") + "Settings").outerHTML;
-                document.querySelector("#" + item.querySelector(".sidebar-item-title").textContent.toLowerCase() + "Settings").classList.remove("hidden");
+                document.querySelector("#" + item.querySelector(".sidebar-item-title").textContent.toLowerCase().replace(/\s/g, "") + "Settings").classList.remove("hidden");
             });
     
             item.addEventListener("mouseover", function() {
-                if (isMouseDown) {
-                    document.querySelector(".selected").classList.remove("selected");
+                    if (isMouseDown) {
+                    const selected = document.querySelector(".selected");
+                    selected.classList.remove("selected")
+                    const settingsContent = document.querySelector(".settings-content:not(.hidden)");
+                    settingsContent.classList.add("hidden");
                     item.classList.add("selected");
-                    document.querySelector(".main-content").innerHTML = document.querySelector("#" + item.querySelector(".sidebar-item-title").textContent.toLowerCase().replace(/\s/g, "") + "Settings").outerHTML;
                     document.querySelector("#" + item.querySelector(".sidebar-item-title").textContent.toLowerCase().replace(/\s/g, "") + "Settings").classList.remove("hidden");
                 }
             });
@@ -156,7 +163,6 @@
             isMouseDown = false;
         });
     
-        document.querySelector(".main-content").innerHTML = document.querySelector("#bluetoothSettings").outerHTML;
         document.querySelector("#bluetoothSettings").classList.remove("hidden");
     </script>
 </body>
