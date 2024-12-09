@@ -118,5 +118,13 @@ async function updateBluetoothDevices() {
   }
 }
 
+try {
+  document.getElementById('showLimelightButton').addEventListener('click', () => {
+    window.api.showLimelight()
+  })
+} catch (error) {
+  console.error('Error adding click event listener to showLimelightButton:', error)
+}
+
 updateBluetoothDevices()
 setInterval(updateBluetoothDevices, 500)

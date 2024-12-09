@@ -3,6 +3,7 @@ const path = require('path')
 const fs = require('fs')
 const { exec } = require('child_process')
 const { execSync } = require('child_process')
+const { screen } = require('electron')
 
 let mainWindow
 
@@ -62,17 +63,41 @@ const createSettingsWindow = () => {
   settingsWindow.loadFile('settings.html')
 }
 
+const createStatusBar = () => {
+  screenWidth = screen.getPrimaryDisplay().workAreaSize.width
+  statusBar = new BrowserWindow({
+    width: screenWidth,
+    height: 30,
+    x: 0,
+    y: 0,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      enableRemoteModule: false,
+      nodeIntegration: false,
+    },
+    autoHideMenuBar: true,
+    frame: false,
+    alwaysOnTop: true,
+    // resizable: false,
+    transparent: true,
+  })
+
+  statusBar.loadFile('statusbar.html')
+}
+
 // app.on('window-all-closed', () => {
 //     if (process.platform !== 'darwin') app.quit()
 // })
 
 app.whenReady().then(() => {
+    createStatusBar()
     createWindow()
     mainWindow.hide()
     createLimelightWindow()
     limelightWindow.hide()
     createSettingsWindow()
-    // settingsWindow.hide()
+    settingsWindow.hide()
 
     mainWindow.on('close', (event) => {
       event.preventDefault()
@@ -87,6 +112,10 @@ app.whenReady().then(() => {
     settingsWindow.on('close', (event) => {
       event.preventDefault()
       settingsWindow.hide()
+    })
+
+    statusBar.on('close', (event) => {
+      event.preventDefault()
     })
   
     // app.on('activate', () => {
@@ -212,6 +241,29 @@ ipcMain.handle('connectBluetoothDevice', async (event, address) => {
     return null
   }
 })
+
+ipcMain.handle('showLimelight', async () => {
+  if (limelightWindow) {
+    if (!limelightWindow.isVisible()) {
+      limelightWindow.show()
+    }
+  }
+})
+
+ipcMain.handle('getSystemInfo', async () => {
+  try {
+    const Hostname = execSync('uname -n').toString().trim()
+    const Kernel = execSync('uname -sr').toString().trim()
+    const Uptime = execSync('uptime -p').toString().trim().replace('up ', '')
+    const CPU = execSync('lscpu | grep "Model name"').toString().trim().replace('Model name:', '').trim()
+    const RAM = execSync('free -h | grep "Mem"').toString().trim().replace(/Mem:\s+/, '').split(/\s+/)[0]
+    const info = { "Computer Name": Hostname, "Kernel Version": Kernel, Uptime, "Processor (CPU)": CPU, "Memory (RAM)": RAM }
+    return info;
+  } catch (error) {
+    console.error('Error getting system info:', error);
+    return null;
+  }
+});
 
 ipcMain.on('close-window', () => {
   if (mainWindow) {

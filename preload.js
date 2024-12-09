@@ -37,8 +37,18 @@ contextBridge.exposeInMainWorld('api', {
       return null
     }
   },
+  showLimelight: () => { ipcRenderer.send('showLimelight') },
   closeWindow: () => {
     ipcRenderer.send('close-window')
+  },
+  getSystemInfo: async () => {
+    try {
+      const info = await ipcRenderer.invoke('getSystemInfo')
+      return info
+    } catch (error) {
+      console.error('Error getting system info:', error)
+      return null
+    }
   },
   hideWindow: () => {
     ipcRenderer.send('hide-window')
