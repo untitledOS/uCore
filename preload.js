@@ -37,6 +37,15 @@ contextBridge.exposeInMainWorld('api', {
       return null
     }
   },
+  getWifiNetworks: async () => {
+    try {
+      const networks = await ipcRenderer.invoke('getWifiNetworks')
+      return networks
+    } catch (error) {
+      console.error('Error getting wifi networks:', error)
+      return []
+    }
+  },
   showLimelight: () => { ipcRenderer.send('showLimelight') },
   closeWindow: () => {
     ipcRenderer.send('close-window')

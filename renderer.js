@@ -118,6 +118,45 @@ async function updateBluetoothDevices() {
   }
 }
 
+async function updateWifiNetworks() {
+  try {
+    const wifiSettings = document.getElementById('networkSettings')
+    if (wifiSettings && wifiSettings.classList.contains('hidden')) {
+      return
+    }
+    const container = document.getElementById('wifiNetworkList')
+    console.log('Updating WiFi Networks')
+    const networks = await window.api.getWifiNetworks()
+    if (!container) {
+      console.error('Container element not found in renderer.js')
+      return
+    }
+    while (container.firstChild) {
+      container.removeChild(container.firstChild)
+    }
+    networks.forEach(network => {
+      const div = document.createElement('div')
+      div.classList.add('network')
+      div.classList.add('settings-content-item')
+      div.id = network.SSID
+      const iconAndName = document.createElement('div')
+      const icon = document.createElement('div')
+      icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3q-1.1 0-2 .9t-.9 2v14q0 1.1.9 2t2 .9t2-.9t.9-2V5q0-1.1-.9-2t-2-.9zm0 2v12l6-6q.2-.2.2-.5t-.2-.5l-6-6zm0 0V5l-6 6q-.2.2-.2.5t.2.5l6 6zm0 0v12l6-6q.2-.2.2-.5t-.2-.5l-6-6zm0 0V5l-6 6q-.2.2-.2.5t.2.5l6 6z"/></svg>'
+      icon.classList.add('settings-content-icon')
+      iconAndName.appendChild(icon)
+      const span = document.createElement('span')
+      span.textContent = network.SSID
+      iconAndName.appendChild(span)
+      div.appendChild(iconAndName)
+      const button = document.createElement('button')
+      button.textContent = 'Connect'
+      button.classList.add('settings-content-button')
+    })
+  } catch (error) {
+    console.error('Error adding networks to DOM in renderer.js:', error)
+  }
+}
+
 try {
   document.getElementById('showLimelightButton').addEventListener('click', () => {
     window.api.showLimelight()
@@ -132,3 +171,5 @@ try {
 } catch (error) {
   console.error('Error adding click event listener to updateBluetoothDevicesButton:', error)
 }
+
+updateWifiNetworks()

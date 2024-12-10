@@ -86,6 +86,22 @@ const createStatusBar = () => {
   statusBar.loadFile('statusbar.html')
 }
 
+const createAppCenterWindow = () => {
+  appCenterWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      enableRemoteModule: false,
+      nodeIntegration: false,
+    },
+    autoHideMenuBar: true,
+  })
+
+  appCenterWindow.loadFile('flathub.html')
+}
+
 // app.on('window-all-closed', () => {
 //     if (process.platform !== 'darwin') app.quit()
 // })
@@ -96,7 +112,8 @@ app.whenReady().then(() => {
     mainWindow.hide()
     createLimelightWindow()
     limelightWindow.hide()
-    createSettingsWindow()
+    // createSettingsWindow()
+    createAppCenterWindow()
 
     mainWindow.on('close', (event) => {
       event.preventDefault()
@@ -233,6 +250,26 @@ ipcMain.handle('connectBluetoothDevice', async (event, address) => {
   } catch (error) {
     console.error('Error connecting Bluetooth device:', error)
     return null
+  }
+})
+
+ipcMain.handle('getWifiNetworks', async () => {
+  try {
+    const networks = []
+    const output = execSync('nmcli -f SSID,BARS device wifi list').toString()
+    const lines = output.split('\n')
+    for (const line of lines) {
+      const parts = line.split(/\s+/)
+      if (parts.length >= 2) {
+        const ssid = parts[0]
+        const bars = parts[1]
+        networks.push({ ssid, bars })
+      }
+    }
+    return networks
+  } catch (error) {
+    console.error('Error getting WiFi networks:', error)
+    return []
   }
 })
 
